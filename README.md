@@ -1,28 +1,3 @@
-# Case Manager Chat: Reference Demo
-
-A small, working proof of concept: students and case managers send each other
-private messages that show up **instantly** on the other person's screen.
-
-It's written in **plain Java 21 with no frameworks or libraries**, so every part
-of the web server is code you can read. It's a reference to learn from. Your app
-should be your own design.
-
-> **Demo only.** Fake names, no passwords, school network only. Never put real
-> student information into this demo.
-
----
-
-## Try it (2-minute demo)
-
-1. Open the site in two browser windows side by side.
-2. In window 1, pick **Alex P.** (a student). In window 2, pick **Ms. Rivera** (Alex's case manager).
-3. Send a message from either window and watch it appear in the other one, with no refresh.
-4. In window 2, notice that Ms. Rivera sees *both* of her students. Messages from a student
-   whose thread isn't open show a red unread count.
-5. Switch window 1 to **Sam T.** You won't see Alex's conversation. Sam has a different case manager.
-
----
-
 ## How it works
 
 ```
@@ -56,44 +31,6 @@ side is one built-in line: `new EventSource("/api/stream?user=...")`.
 | `public/chat.js` | The browser side: `fetch` for normal requests, `EventSource` for live updates, and `textContent` to display messages safely. |
 | `Dockerfile`, `compose.yml` | How the Pi builds and runs it. You shouldn't need to change these. |
 
----
-
-## Run it on your own computer
-
-You need Java 21 or newer (`java -version` shows your version).
-
-```
-javac -d out src/*.java
-java -cp out ChatServer
-```
-
-Open http://localhost:8080. Messages are saved in `data/messages.txt`. Delete
-that file to start fresh.
-
-## Run it on a school Pi
-
-Push this folder to a GitHub repo and point the Pi's setup script at it. The Pi
-sees `compose.yml`, builds the app with Docker, and redeploys on every push. The
-first build takes a few minutes. After that, pushes deploy in about a minute.
-
----
-
-## The demo cuts corners on purpose. A real version needs these
-
-1. **Real login.** Right now the browser *says* who it is (`?user=s1`) and the
-   server believes it, so anyone could pretend to be anyone. A real app signs
-   people in (for example with their school Google account), and the **server**
-   tracks who they are with a session. This is the #1 change.
-2. **Privacy approval first.** Messages between students and SPED case managers
-   are likely education records (FERPA), and IEP details are highly sensitive.
-   Before you build, talk with the school admin or SPED coordinator: What may be
-   sent in a message? Who can read the logs? How long are messages kept? Is there
-   already an approved tool?
-3. **A real database** (SQLite, PostgreSQL) instead of a text file, so messages
-   can be searched, backed up, and deleted properly.
-4. **HTTPS**, so messages can't be read in transit.
-5. **Things users will expect:** notifications, read receipts, "case manager is
-   away" status, and what happens when a student's case manager changes.
 
 ## Going further in Java
 
