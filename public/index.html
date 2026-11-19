@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Case Manager Chat (Demo)</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="topbar">
+    <h1>Case Manager Chat</h1>
+    <span class="demo-badge">DEMO: fake names only</span>
+    <span id="whoami" class="whoami" hidden></span>
+    <button id="logout" class="link-button" hidden>Switch user</button>
+  </header>
+
+  <!-- Screen 1: pretend login -->
+  <main id="login-view" class="login">
+    <h2>Who are you?</h2>
+    <p>This demo has no passwords. Pick a person, then open a second browser window and pick someone else to watch messages arrive live.</p>
+    <div id="user-list" class="user-list"></div>
+  </main>
+
+  <!-- Screen 2: the chat -->
+  <main id="chat-view" class="chat" hidden>
+    <nav class="sidebar" aria-label="Conversations">
+      <h2>Conversations</h2>
+      <ul id="thread-list"></ul>
+    </nav>
+
+    <section class="conversation" aria-labelledby="thread-title">
+      <h2 id="thread-title">Select a conversation</h2>
+      <ol id="messages" class="messages" aria-live="polite"></ol>
+      <form id="send-form" class="send-form" hidden>
+        <label for="message-input" class="visually-hidden">Message</label>
+        <input id="message-input" type="text" maxlength="1000" autocomplete="off" placeholder="Type a message...">
+        <button type="submit">Send</button>
+      </form>
+      <p id="connection" class="connection">Connecting...</p>
+    </section>
+  </main>
+
+  <script src="chat.js"></script>
+</body>
+</html>
