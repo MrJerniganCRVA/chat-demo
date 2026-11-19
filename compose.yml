@@ -1,0 +1,13 @@
+services:
+  chat:
+    build: .
+    ports:
+      # Only reachable from the Pi itself; nginx on the Pi forwards visitors here.
+      - "127.0.0.1:8080:8080"
+    volumes:
+      # Messages are saved in a Docker volume so they survive redeploys.
+      - chat-data:/app/data
+    restart: unless-stopped
+
+volumes:
+  chat-data:
